@@ -8,6 +8,11 @@ namespace PropertyManager.Data
     // A mocker just creates a class repository where you can quickly set hardcoded values for testing
     public class MockCommanderRepo : ICommanderRepo
     {
+        public void CreateCommand(Command command)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Command> GetAppCommands()
         {
             return new List<Command>() {
@@ -44,6 +49,11 @@ namespace PropertyManager.Data
                 Line = "Boil Water with Egg in it",
                 Platform = "Kettle & Pan"
             };
+        }
+
+        public bool SaveChanges()
+        {
+            throw new NotImplementedException();
         }
     }
 }

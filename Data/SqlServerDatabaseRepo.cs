@@ -15,6 +15,16 @@ namespace PropertyManager.Data
             _context = context;
         }
 
+        public void CreateCommand(Command command)
+        {
+            if (command == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            _context.Add(command);
+        }
+
         public IEnumerable<Command> GetAppCommands()
         {
             return _context.Commands.ToList();
@@ -23,6 +33,11 @@ namespace PropertyManager.Data
         public Command GetCommandById(int Id)
         {
             return _context.Commands.FirstOrDefault(x => x.Id == Id);
+        }
+
+        public bool SaveChanges()
+        {
+            return (_context.SaveChanges() >= 0);
         }
     }
 }
