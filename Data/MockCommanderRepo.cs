@@ -13,6 +13,11 @@ namespace PropertyManager.Data
             throw new NotImplementedException();
         }
 
+        public void DeleteCommand(Command command)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Command> GetAppCommands()
         {
             return new List<Command>() {
@@ -52,6 +57,11 @@ namespace PropertyManager.Data
         }
 
         public bool SaveChanges()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdatedCommand(Command command)
         {
             throw new NotImplementedException();
         }

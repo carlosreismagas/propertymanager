@@ -10,6 +10,8 @@ namespace PropertyManager.Interfaces
         IEnumerable<Command> GetAppCommands();
         Command GetCommandById(int Id);
         void CreateCommand(Command command);
+        void UpdatedCommand(Command command);
+        void DeleteCommand(Command command);
 
     }
 }

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PropertyManager.Data;
+using PropertyManager.Models;
 
 namespace PropertyManager.Controllers
 {
@@ -23,11 +24,25 @@ namespace PropertyManager.Controllers
             return Ok(properties);
         }
 
-        [HttpGet("{Id}")]
+        [HttpGet("{Id}", Name = "GetPropertyById")]
         public async Task<ActionResult> GetPropertyById(int Id)
         {
             var property = await _db.Property.FirstOrDefaultAsync(x => x.Id == Id);
             return Ok(property);
+        }
+
+        // POST api/property
+        [HttpPost]
+        public async Task<ActionResult> CreatePropery(Property model)
+        {
+            model.CreatedDate = DateTime.Now;
+            model.UpdatedDate = DateTime.Now;
+            model.IsActive = true;
+            model.IsDeleted = false;
+
+            _db.Property.Add(model);
+            await _db.SaveChangesAsync();
+            return CreatedAtRoute("GetPropertyById", model.Id, model);
         }
     }
 }

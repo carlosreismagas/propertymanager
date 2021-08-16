@@ -25,6 +25,11 @@ namespace PropertyManager.Data
             _context.Add(command);
         }
 
+        public void DeleteCommand(Command command)
+        {
+            _context.Commands.Remove(command);
+        }
+
         public IEnumerable<Command> GetAppCommands()
         {
             return _context.Commands.ToList();
@@ -38,6 +43,11 @@ namespace PropertyManager.Data
         public bool SaveChanges()
         {
             return (_context.SaveChanges() >= 0);
+        }
+
+        public void UpdatedCommand(Command command)
+        {
+            // Don't do anything here
         }
     }
 }

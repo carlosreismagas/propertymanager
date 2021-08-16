@@ -9,6 +9,7 @@ using PropertyManager.Data;
 using PropertyManager.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
+using Newtonsoft.Json.Serialization;
 
 namespace PropertyManager
 {
@@ -33,13 +34,18 @@ namespace PropertyManager
                 configuration.RootPath = "ClientApp/build";
             });
 
-                        //services.AddScoped<ICommanderRepo, MockCommanderRepo>();
+            //services.AddScoped<ICommanderRepo, MockCommanderRepo>();
             services.AddScoped<ICommanderRepo, SqlServerDatabaseRepo>();
 
             services.AddDbContext<DBContext>(option => option.UseSqlServer(
                 Configuration.GetConnectionString("PropertyManagerDb")));
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddControllers().AddNewtonsoftJson(s =>
+            {
+                s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using PropertyManager.Data;
 using PropertyManager.DTOs;
@@ -54,6 +55,67 @@ namespace PropertyManager.Controllers
             _repository.SaveChanges();
             var commandDto = _mapper.Map<CommandReadDTO>(model);
             return CreatedAtRoute(nameof(GetCommandById), new { Id = commandDto.Id }, commandDto);
+        }
+
+        // PUT api/command/{id}
+        [HttpPut("{id}")]
+        public ActionResult UpdateCommand(int id, CommandUpdateDTO commandDTO)
+        {
+            var commandModel = _repository.GetCommandById(id);
+            if (commandModel == null)
+            {
+                return NotFound();
+            }
+
+            // mapper will automatically prepare the context for update, EF does that for us
+            _mapper.Map(commandDTO, commandModel);
+            // This doesn't do anything yet, but could be an option other than automapper for more complex processes. 
+            _repository.UpdatedCommand(commandModel);
+
+            _repository.SaveChanges();
+            return NoContent();
+        }
+
+        // PATCH api/command/{id}
+        [HttpPatch("{id}")]
+        public ActionResult PartialUpdateCommand(int id, JsonPatchDocument<CommandUpdateDTO> patchDoc)
+        {
+            var commandModel = _repository.GetCommandById(id);
+            if (commandModel == null)
+            {
+                return NotFound();
+            }
+
+            var commandToPatch = _mapper.Map<CommandUpdateDTO>(commandModel);
+            patchDoc.ApplyTo(commandToPatch, ModelState);
+            if (!TryValidateModel(ModelState))
+            {
+                return ValidationProblem(ModelState);
+            }
+
+            // mapper will automatically prepare the context for update, EF does that for us
+            _mapper.Map(commandToPatch, commandModel);
+            // This doesn't do anything yet, but could be an option other than automapper for more complex processes. 
+            _repository.UpdatedCommand(commandModel);
+            _repository.SaveChanges();
+
+
+            return NoContent();
+        }
+
+        //DELETE api/command/{id}
+        [HttpDelete("{id}")]
+        public ActionResult RemoveCommand(int id)
+        {
+            var command = _repository.GetCommandById(id);
+            if (command == null)
+            {
+                return NotFound();
+            }
+
+            _repository.DeleteCommand(command);
+            _repository.SaveChanges();
+            return NoContent();
         }
     }
 }
