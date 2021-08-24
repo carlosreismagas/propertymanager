@@ -1,0 +1,36 @@
+.login {
+    position: absolute;
+    margin: 0 auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 300px;
+    height: auto;
+    background-color: #eee;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.login label {
+    font-size: smaller;
+    padding-left: 5px;
+    margin: 0;
+}
+
+.btn {
+    background-color: darkslategray;
+    color: white;
+}
+
+.login input {
+    outline: darkslategray;
+}
+
+.login p {
+    font-size: smaller;
+}
+
+.login p span {
+    color: #009e9e;
+    cursor: pointer;
+}

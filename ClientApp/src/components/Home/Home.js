@@ -8,7 +8,7 @@ export class Home extends Component {
   }
 
   componentDidMount() {
-    this.getProperties();
+    //this.getProperties();
   }
 
   async getProperties() {
@@ -26,7 +26,7 @@ export class Home extends Component {
               <div className="card-body">
                 <h5 className="card-title">{p.description}</h5>
                 <p className="card-text">{p.address}</p>
-                <a href="#" className="btn btn-primary">Detalhes</a>
+                <button className="btn btn-primary">Detalhes</button>
               </div>
             </div>
             <br></br>
