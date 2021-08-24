@@ -8,7 +8,7 @@ export class Home extends Component {
   }
 
   componentDidMount() {
-    //this.getProperties();
+    this.getProperties();
   }
 
   async getProperties() {
@@ -21,7 +21,7 @@ export class Home extends Component {
     return (
       <div>
         {properties.map(p =>
-          <div>
+          <div key={p.id}>
             <div className="card">
               <div className="card-body">
                 <h5 className="card-title">{p.description}</h5>
