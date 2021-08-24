@@ -26,14 +26,14 @@ const Login = () => {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(post)
-        };
+        }
 
         fetch(url, requestOptions)
             .then(response => response.json())
             .then(data => {
                 if (data) {
                     var session = {
-                        userObj: data.userObj,
+                        userObj: data.user,
                         token: data.token
                     }
                     

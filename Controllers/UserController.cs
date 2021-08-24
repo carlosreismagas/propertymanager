@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PropertyManager.Data;
 using PropertyManager.Models;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace PropertyManager.Controllers
 {
@@ -11,7 +13,6 @@ namespace PropertyManager.Controllers
     public class UserController : ControllerBase
     {
         private readonly DBContext _db;
-
         public UserController(DBContext db)
         {
             _db = db;
@@ -28,30 +29,26 @@ namespace PropertyManager.Controllers
             return Ok(user);
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Login(User model)
+        [HttpPost, Route("Login")]
+        public async Task<ActionResult> Login([FromBody] User model)
         {
             var user = await _db.User.FirstOrDefaultAsync(x => x.Username == model.Username);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
+            if (user == null) { return NotFound(); }
             if (user.Password == model.Password)
             {
                 return Ok(new
                 {
                     User = user,
-                    Token = ""
+                    Token = "123"
                 });
             }
 
             return NotFound();
         }
 
-        // POST api/property/UserRegistration
-        [HttpPost]
-        public async Task<ActionResult> UserRegistration(User model)
+        // POST api/property/Register
+        [HttpPost, Route("Register")]
+        public async Task<ActionResult> Register([FromBody] User model)
         {
             model.CreatedUser = model.Name;
             model.UpdatedUser = model.Name;
@@ -62,7 +59,12 @@ namespace PropertyManager.Controllers
 
             _db.User.Add(model);
             await _db.SaveChangesAsync();
-            return CreatedAtRoute("GetUserById", model.Id, model);
+
+            return Ok(new
+                {
+                    User = model,
+                    Token = "123"
+                });
         }
     }
 }
