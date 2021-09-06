@@ -20,7 +20,9 @@ namespace PropertyManager
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder
+                    .UseUrls("https://localhost:5001","http://localhost:5000","https://ntbncrsof05.ncr.local:5001","http://ntbncrsof05.ncr.local:5000")
+                    .UseStartup<Startup>();
                 });
     }
 }

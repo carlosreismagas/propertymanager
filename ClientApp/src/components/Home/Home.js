@@ -1,46 +1,17 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-export class Home extends Component {
-  static displayName = Home.name;
+export class Home extends React.Component {
   constructor(props) {
-    super(props);
-    this.state = { properties: [], loading: true };
+    super();
+    var session = JSON.parse(localStorage.getItem("user_session"));
+    this.state = {
+      userr: { name: session.userObj.name, token: session.userObj.token }
+    }
   }
-
-  componentDidMount() {
-    this.getProperties();
-  }
-
-  async getProperties() {
-    const response = await fetch('api/property');
-    const data = await response.json();
-    this.setState({ properties: data, loading: false });
-  }
-
-  static renderProperties(properties) {
+  render () {
     return (
       <div>
-        {properties.map(p =>
-          <div key={p.id}>
-            <div className="card">
-              <div className="card-body">
-                <h5 className="card-title">{p.description}</h5>
-                <p className="card-text">{p.address}</p>
-                <button className="btn btn-primary">Detalhes</button>
-              </div>
-            </div>
-            <br></br>
-          </div>
-        )}
-      </div>
-    );
-  }
-
-  render() {
-    let contents = this.state.loading ? <p>Loading.... </p> : Home.renderProperties(this.state.properties)
-    return (
-      <div>
-        {contents}
+        <p>Bem vindo <strong>{this.state.userr.name}</strong></p>
       </div>
     );
   }

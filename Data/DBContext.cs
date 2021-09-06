@@ -13,5 +13,6 @@ namespace PropertyManager.Data
         public DbSet<Command> Commands { get; set; }
         public DbSet<Property> Property { get; set; }
         public DbSet<User> User { get; set; }
+        public DbSet<Files> Files { get; set; }
     }
 }

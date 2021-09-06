@@ -3,10 +3,25 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PropertyManager.Migrations
 {
-    public partial class AddModelsPropertyAndUser : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Commands",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    HowTo = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Line = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Platform = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Commands", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Property",
                 columns: table => new
@@ -55,6 +70,9 @@ namespace PropertyManager.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Commands");
+
             migrationBuilder.DropTable(
                 name: "Property");
 

@@ -10,8 +10,8 @@ using PropertyManager.Data;
 namespace PropertyManager.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20210814173826_AddModelsPropertyAndUser")]
-    partial class AddModelsPropertyAndUser
+    [Migration("20210825093838_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
