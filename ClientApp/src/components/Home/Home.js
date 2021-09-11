@@ -8,10 +8,17 @@ export class Home extends React.Component {
       userr: { name: session.userObj.name, token: session.userObj.token }
     }
   }
-  render () {
+
+  logout() {
+    localStorage.removeItem("user_session");
+    window.location.href = "/";
+  }
+
+  render() {
     return (
       <div>
         <p>Bem vindo <strong>{this.state.userr.name}</strong></p>
+        <button className="btn btn-outline" onClick={() => this.logout()}>Terminar sessão</button>
       </div>
     );
   }

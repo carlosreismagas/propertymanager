@@ -9,8 +9,8 @@ const Login = () => {
         Password: ""
     });
 
-    var timer = setInterval(function() {
-        if(document.getElementById("Username")) {
+    var timer = setInterval(function () {
+        if (document.getElementById("Username")) {
             document.querySelectorAll("input").forEach(item => {
                 item.setAttribute("autocomplete", "off");
             });
@@ -21,7 +21,7 @@ const Login = () => {
     const sign = (e) => {
         e.preventDefault();
         var url = register ? "api/user/register" : "api/user/login"
-        
+
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -36,26 +36,27 @@ const Login = () => {
                         userObj: data.user,
                         token: data.token
                     }
-                    
+
                     localStorage.setItem("user_session", JSON.stringify(session));
+                    window.location.href = "/";
                 }
-            }).catch(err => { console.log (err) });
+            }).catch(err => { console.log(err) });
     }
 
     const toggleRegister = () => {
         setRegister(!register);
     }
 
-    if(!register) {
+    if (!register) {
         return (
             <div className="login">
-                <h4 style={{textAlign: "center"}}>Wealth Manager</h4>
+                <h4 style={{ textAlign: "center" }}>Wealth Manager</h4>
                 <form onSubmit={sign}>
                     <label>Username</label>
-                    <input id="Username" type="text" className="form-control" value={post.Username} onChange={(e) => setPost({...post, Username: e.target.value})}/>
+                    <input id="Username" type="text" className="form-control" value={post.Username} onChange={(e) => setPost({ ...post, Username: e.target.value })} />
 
                     <label>Password</label>
-                    <input id="Password" type="password" className="form-control" value={post.Password} onChange={(e) => setPost({...post, Password: e.target.value})}/>
+                    <input id="Password" type="password" className="form-control" value={post.Password} onChange={(e) => setPost({ ...post, Password: e.target.value })} />
                     <br></br>
                     <button type="submit" className="btn btn-block">Login</button>
                 </form>
@@ -65,19 +66,19 @@ const Login = () => {
     } else {
         return (
             <div className="login">
-            <h4 style={{textAlign: "center"}}>Wealth Manager</h4>
+                <h4 style={{ textAlign: "center" }}>Wealth Manager</h4>
                 <form onSubmit={sign}>
                     <label>Email</label>
-                    <input id="Email" type="text" className="form-control" value={post.Email} onChange={(e) => setPost({...post, Email: e.target.value})}/>
+                    <input id="Email" type="text" className="form-control" value={post.Email} onChange={(e) => setPost({ ...post, Email: e.target.value })} />
 
                     <label>Name</label>
-                    <input id="Name" type="text" className="form-control" value={post.Name} onChange={(e) => setPost({...post, Name: e.target.value})}/>
+                    <input id="Name" type="text" className="form-control" value={post.Name} onChange={(e) => setPost({ ...post, Name: e.target.value })} />
 
                     <label>Username</label>
-                    <input id="Username" type="text" className="form-control" value={post.Username} onChange={(e) => setPost({...post, Username: e.target.value})}/>
+                    <input id="Username" type="text" className="form-control" value={post.Username} onChange={(e) => setPost({ ...post, Username: e.target.value })} />
 
                     <label>Password</label>
-                    <input id="Password" type="password" className="form-control" value={post.Password} onChange={(e) => setPost({...post, Password: e.target.value})}/>
+                    <input id="Password" type="password" className="form-control" value={post.Password} onChange={(e) => setPost({ ...post, Password: e.target.value })} />
                     <br></br>
                     <button type="submit" className="btn btn-block">Register</button>
                 </form>

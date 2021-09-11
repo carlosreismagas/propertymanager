@@ -1,12 +1,12 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using PropertyManager.Models;
 
-namespace PropertyManager.Models
+namespace PropertyManager.DTOs
 {
-    public class Property
+    public class PropertyDTO
     {
-        [Key]
         public int Id { get; set; }
 
         [Required]
@@ -31,5 +31,7 @@ namespace PropertyManager.Models
         public DateTime UpdatedDate { get; set; }
 
         public bool IsDeleted { get; set; } = false;
+
+        public List<Files> Files { get; set; }
     }
 }
